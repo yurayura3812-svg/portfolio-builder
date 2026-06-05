@@ -27,6 +27,12 @@ export default function Home() {
     setBlocks([...blocks, newBlock]); // 既存の配列に新しいブロックをガッチャンコする
   };
 
+  const deleteBlock = (id: string) => {
+    // 指定された id 以外のブロックだけで新しい配列を作る（フィルターにかける）
+    const updatedBlocks = blocks.filter(block => block.id !== id);
+    setBlocks(updatedBlocks);
+  };
+
   // ブロックの内容が書き換わったときにデータを更新する関数
   const updateBlockContent = (id: string, text: string) => {
     const updated = blocks.map((block) => {
@@ -75,6 +81,15 @@ export default function Home() {
           {blocks.map((block) => (
             <div key={block.id} className="border p-4 rounded bg-gray-50">
               <span className="text-xs font-bold uppercase text-gray-500">{block.type} ブロック</span>
+              
+              {/* 削除ボタン */}
+              <button 
+                onClick={() => deleteBlock(block.id)}
+                className="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1 rounded hover:bg-red-50"
+              >
+                削除
+              </button>
+
               <textarea
                 className="w-full mt-2 p-2 border rounded font-mono text-sm text-gray-800"
                 rows={3}
