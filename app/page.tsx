@@ -1,7 +1,8 @@
 'use client'; // Reactの動的な機能（State）を使うための宣言
 
 import { useState } from 'react';
-
+//右側のプレビュー画面を担当するコンポーネント
+import PortfolioView from './components/PortfolioView';
 // 1つのブロック（パーツ）の型定義
 interface PortfolioBlock {
   id: string;
@@ -66,26 +67,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 右半分：公開画面プレビュー（人が見る側） */}
-      <div className="w-1/2 bg-gray-900 text-white p-6 rounded-lg shadow-md min-h-[500px]">
-        <h2 className="text-xl font-bold mb-4 text-gray-400 border-b border-gray-700 pb-2">🌐 公開ページ（プレビュー）</h2>
-        
-        <div className="space-y-6">
-          {blocks.map((block) => {
-            if (block.type === 'text') {
-              return <p key={block.id} className="text-lg text-gray-200">{block.content}</p>;
-            }
-            if (block.type === 'code') {
-              return (
-                <pre key={block.id} className="bg-black p-4 rounded font-mono text-sm text-green-400 overflow-x-auto border border-gray-800">
-                  <code>{block.content}</code>
-                </pre>
-              );
-            }
-            return null;
-          })}
-        </div>
-      </div>
+      {/* 右側：引っ越し先のパーツを呼び出して、現在のデータを渡すだけ！ */}
+      <PortfolioView blocks={blocks} />
 
     </div>
   );
