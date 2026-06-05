@@ -13,7 +13,7 @@ interface PortfolioBlock {
 export default function Home() {
   // ユーザーのポートフォリオデータを管理するState（メモリ上のデータベースのようなもの）
   const [blocks, setBlocks] = useState<PortfolioBlock[]>([
-    { id: '1', type: 'text', content: 'こんにちは！エンジニアの夢來です。' },
+    { id: '1', type: 'text', content: 'こんにちは！エンジニアの○○です。' },
     { id: '2', type: 'code', content: 'print("Hello World")' },
   ]);
 
@@ -43,20 +43,32 @@ export default function Home() {
       
       {/* 左半分：エディタ画面（作る側） */}
       <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-bold mb-4 text-gray-800">🛠️ ポートフォリオ エディタ</h2>
+        <h2 className="text-xl font-bold mb-4 text-gray-800"> ポートフォリオ エディタ</h2>
         
-        {/* ブロック追加ボタン群 */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-col gap-3 mb-6">
+  
+        {/* 1行目：コンテンツ追加系 */}
+        <div className="flex gap-2">
           <button onClick={() => addBlock('text')} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">＋ テキスト追加</button>
           <button onClick={() => addBlock('code')} className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 text-sm">＋ コード追加</button>
         </div>
         
-        <button onClick={() => {
-          localStorage.setItem('portfolio_data', JSON.stringify(blocks));
-          alert('ブラウザにデータを保存しました！');
+        {/* 2行目：システム・アクション系 */}
+        <div className="flex gap-2">
+          <button onClick={() => {
+            localStorage.setItem('portfolio_data', JSON.stringify(blocks));
+            alert('ブラウザにデータを保存しました！');
           }} className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 text-sm font-bold">
-          データを保存
-        </button>
+            データを保存
+          </button>
+
+          <button onClick={() => {
+            window.open('/share', '_blank');
+          }} className="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 text-sm font-bold flex items-center gap-1">
+            公開ページを確認
+          </button>
+          </div>
+        </div>
 
         {/* ブロックの入力フォーム一覧 */}
         <div className="space-y-4">
