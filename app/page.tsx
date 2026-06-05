@@ -50,6 +50,13 @@ export default function Home() {
           <button onClick={() => addBlock('text')} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">＋ テキスト追加</button>
           <button onClick={() => addBlock('code')} className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 text-sm">＋ コード追加</button>
         </div>
+        
+        <button onClick={() => {
+          localStorage.setItem('portfolio_data', JSON.stringify(blocks));
+          alert('ブラウザにデータを保存しました！');
+          }} className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 text-sm font-bold">
+          データを保存
+        </button>
 
         {/* ブロックの入力フォーム一覧 */}
         <div className="space-y-4">

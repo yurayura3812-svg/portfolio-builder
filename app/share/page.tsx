@@ -1,19 +1,29 @@
-// app/share/page.tsx
 'use client';
 
+import { useEffect, useState } from 'react';
 import PortfolioView from '../components/PortfolioView';
 
+interface PortfolioBlock {
+  id: string;
+  type: 'text' | 'code' | '3d-model';
+  content: string;
+}
+
 export default function SharePage() {
-  // 【実験用の仮データ】本来はエディタで保存したデータがここに入ります
-  const mockPublishData = [
-    { id: '1', type: 'text' as const, content: 'これは実際に公開されたページです！' },
-    { id: '2', type: 'code' as const, content: 'console.log("HTML自動生成テスト成功");' }
-  ];
+  const [blocks, setBlocks] = useState<PortfolioBlock[]>([]);
+
+  useEffect(() => {
+    // 画面が開いた瞬間に、ブラウザの記憶からデータを取り出す
+    const savedData = localStorage.getItem('portfolio_data');
+    if (savedData) {
+      setBlocks(JSON.parse(savedData));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* 画面幅いっぱいに、純粋なポートフォリオだけを表示する */}
-      <PortfolioView blocks={mockPublishData} />
+      {/* 取り出したリアルタイムなデータを渡して表示 */}
+      <PortfolioView blocks={blocks} />
     </div>
   );
 }
